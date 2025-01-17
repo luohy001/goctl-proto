@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package mocker.api;
+option go_package = "/protoc-gen-go";
+
+message Empty {}
+
+message ExtraInfo {
+    // 内容
+    string Content = 1 [json_name = "content"];
+}
+
+message GetMockRequest {
+    // ID
+    int64 Id = 1;
+}
+
+message ListMockRequest {
+    // 页码
+    int32 Page = 1 [json_name = "page"];
+    // 每页数量
+    int32 Count = 2 [json_name = "count"];
+    // 类型
+    int32 Type = 3 [json_name = "type"];
+    // 名称
+    string Name = 4 [json_name = "name"];
+}
+
+message ListMockResponse {
+    // 总数
+    int64 Total = 1 [json_name = "total"];
+    // 数据
+    repeated Mock Mocks = 2 [json_name = "mocks"];
+}
+
+message Mock {
+    // ID
+    int64 Id = 1 [json_name = "id"];
+    // 名称
+    string Name = 2 [json_name = "name"];
+    // 类型
+    int32 Type = 3 [json_name = "type"];
+    // 标签列表
+    repeated string Tags = 4 [json_name = "tags"];
+    // 额外信息
+    map<string,ExtraInfo> ExtraInfos = 5 [json_name = "extra_infos"];
+}
+
+service MockerApi {
+    // Ping
+    rpc Ping (Empty) returns (Empty);
+    // 创建
+    rpc CreateMock (Mock) returns (Mock);
+    // 查询
+    rpc GetMock (GetMockRequest) returns (Mock);
+    // 列表查询
+    rpc ListMock (ListMockRequest) returns (ListMockResponse);
+    // 更新
+    rpc UpdateMock (Mock) returns (Empty);
+}

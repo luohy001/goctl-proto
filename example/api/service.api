@@ -1,0 +1,38 @@
+syntax = "v1"
+
+import (
+	"data.api"
+	"service_message.api"
+)
+
+@server (
+	prefix: mocker
+)
+service mocker-api {
+	@doc "Ping"
+	@handler Ping
+	get /ping
+}
+
+@server (
+	prefix: mocker/mock
+	group:  mock
+)
+service mocker-api {
+	@doc "创建"
+	@handler CreateMock
+	post /create (Mock) returns (Mock)
+
+	@doc "更新"
+	@handler UpdateMock
+	post /update (Mock)
+
+	@doc "查询"
+	@handler GetMock
+	get /get (GetMockRequest) returns (Mock)
+
+	@doc "列表查询"
+	@handler ListMock
+	get /list (ListMockRequest) returns (ListMockResponse)
+}
+

@@ -1,0 +1,15 @@
+syntax = "v1"
+
+// @doc Mock this is mock
+type Mock {
+	Id         int64                 `json:"id,optional"` // ID
+	Name       string                `json:"name,optional"` // 名称
+	Type       int32                 `json:"type,optional"` // 类型
+	Tags       []string              `json:"tags,optional"` // 标签列表
+	ExtraInfos map[string]*ExtraInfo `json:"extra_infos,optional"` // 额外信息
+}
+
+type ExtraInfo {
+	Content string `json:"content,optional"` // 内容
+}
+

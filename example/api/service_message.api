@@ -1,0 +1,22 @@
+syntax = "v1"
+
+import (
+	"data.api"
+)
+
+type GetMockRequest {
+	Id int64 `path:"id"` // ID
+}
+
+type ListMockRequest {
+	Page  int32  `json:"page,default=1"` // 页码
+	Count int32  `json:"count,default=10,range=[0:100]"` // 每页数量
+	Type  int32  `json:"type,optional"` // 类型
+	Name  string `json:"name,optional"` // 名称
+}
+
+type ListMockResponse {
+	Total int64   `json:"total"` // 总数
+	Mocks []*Mock `json:"mocks,optional"` // 数据
+}
+
