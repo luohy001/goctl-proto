@@ -106,7 +106,7 @@ func Unmarshal(data any, multiple bool) (f *File, err error) {
 			if groupName := group.GetAnnotation("group"); groupName != "" && multiple {
 				groupNameArr := strings.Split(groupName, "/")
 				newGroupName := groupNameArr[len(groupNameArr)-1]
-				serviceName = val.Service.Name + "/" + newGroupName
+				serviceName = newGroupName
 			} else {
 				serviceName = val.Service.Name
 			}
