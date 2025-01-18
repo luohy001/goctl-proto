@@ -36,8 +36,10 @@ func protoGen(ctx context.Context, command *cli.Command) (err error) {
 	} else {
 		return errors.New("api file not found, must set one of goctl -api or --input")
 	}
+	apiFileName := ""
 	if apiFile := filepath.Base(goctlPlugin.ApiFilePath); goctlPlugin.Dir != "" {
 		output = filepath.Join(goctlPlugin.Dir, strings.TrimSuffix(apiFile, filepath.Ext(apiFile))+".proto")
+		apiFileName = strings.TrimSuffix(apiFile, filepath.Ext(apiFile))
 	} else {
 		fi, err := os.Stat(output)
 		if err != nil {
@@ -47,8 +49,9 @@ func protoGen(ctx context.Context, command *cli.Command) (err error) {
 			return errors.New("output is not a directory")
 		}
 		output = filepath.Join(output, strings.TrimSuffix(apiFile, filepath.Ext(apiFile))+".proto")
+		apiFileName = strings.TrimSuffix(apiFile, filepath.Ext(apiFile))
 	}
-	pf, err := proto.Unmarshal(goctlPlugin.Api, command.Bool("multiple"))
+	pf, err := proto.Unmarshal(goctlPlugin.Api, command.Bool("multiple"), apiFileName)
 	if err != nil {
 		return err
 	}

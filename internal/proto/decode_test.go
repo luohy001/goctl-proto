@@ -14,7 +14,7 @@ func TestUnmarshal(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	f, err := Unmarshal(api, false)
+	f, err := Unmarshal(api, true, "service")
 	if err != nil {
 		t.Fatal(err)
 	}

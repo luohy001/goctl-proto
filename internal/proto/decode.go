@@ -71,12 +71,12 @@ var (
 	}
 )
 
-func Unmarshal(data any, multiple bool) (f *File, err error) {
+func Unmarshal(data any, multiple bool, apiFileName string) (f *File, err error) {
 	switch val := data.(type) {
 	case *spec.ApiSpec:
 		f = &File{
 			Syntax:  Version3,
-			Package: strings.ToLower(val.Service.Name),
+			Package: strings.ToLower(apiFileName),
 			Options: []*Option{
 				{
 					Name:  "go_package",
@@ -108,7 +108,7 @@ func Unmarshal(data any, multiple bool) (f *File, err error) {
 				newGroupName := groupNameArr[len(groupNameArr)-1]
 				serviceName = newGroupName
 			} else {
-				serviceName = val.Service.Name
+				serviceName = apiFileName
 			}
 			var srv *Service
 			if srvIndex, exist := serviceNameMap[serviceName]; exist {
