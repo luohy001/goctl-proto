@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+message MyMessage {
+  string name = 1;
+  int32 age = 2;
+}
+
+service MyService {
+  rpc GetInfo(MyMessage) returns (MyMessage);
+}
+
+// 使用 b.proto 中定义的 message 和 service
+message ExtendedMessage {
+  int32 Page = 1 [json_name = "page"];
+  // 每页数量
+  int32 Count = 2 [json_name = "count"];
+  // 类型
+  int32 Type = 3 [json_name = "type"];
+  // 名称
+  string Name = 4 [json_name = "name"];
+}
+
+service ExtendedService {
+  rpc GetExtendedInfo(ExtendedMessage) returns (ExtendedMessage);
+}

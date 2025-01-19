@@ -104,9 +104,7 @@ func Unmarshal(data any, multiple bool, apiFileName string) (f *File, err error)
 		for _, group := range val.Service.JoinPrefix().Groups {
 			var serviceName string
 			if groupName := group.GetAnnotation("group"); groupName != "" && multiple {
-				groupNameArr := strings.Split(groupName, "/")
-				newGroupName := groupNameArr[len(groupNameArr)-1]
-				serviceName = newGroupName
+				serviceName = groupName
 			} else {
 				serviceName = apiFileName
 			}

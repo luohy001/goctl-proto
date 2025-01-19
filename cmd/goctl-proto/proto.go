@@ -62,6 +62,10 @@ func protoGen(ctx context.Context, command *cli.Command) (err error) {
 	if err = os.WriteFile(output, pd, 0666); err != nil {
 		return err
 	}
+	base := command.String("base")
+	if base != "" {
+		proto.MergeFile(filepath.Join(goctlPlugin.Dir, base+".proto"), output)
+	}
 	return
 }
 
